@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <title>JungleSpeed</title>
+  </head>
+  <body>
+    <script src='./enchant.js'></script>
+    <script>
+    enchant();
+
+
+    window.onload = function(){
+      var game = new Game(320, 320);
+      var cards = [];
+      var asset_names = [
+        'data/1.png',
+        'data/2.png',
+        'data/3.png',
+        'data/4.png',
+        'data/5.png',
+        'data/6.png',
+        'data/7.png',
+        'data/8.png'
+      ];
+      var asset_names = [
+"data/1.svg.b.png",  "data/2.svg.w.png",  "data/4.svg.g.png",  "data/5.svg.y.png",  "data/7.svg.r.png",
+"data/1.svg.g.png",  "data/2.svg.y.png",  "data/4.svg.r.png",  "data/6.svg.b.png",  "data/7.svg.w.png",
+"data/1.svg.r.png",  "data/3.svg.b.png",  "data/4.svg.w.png",  "data/6.svg.g.png",  "data/7.svg.y.png",
+"data/1.svg.w.png",  "data/3.svg.g.png",  "data/4.svg.y.png",  "data/6.svg.r.png",  "data/8.svg.b.png",
+"data/1.svg.y.png",  "data/3.svg.r.png",  "data/5.svg.b.png",  "data/6.svg.w.png",  "data/8.svg.g.png",
+"data/2.svg.b.png",  "data/3.svg.w.png",  "data/5.svg.g.png",  "data/6.svg.y.png",  "data/8.svg.r.png",
+"data/2.svg.g.png",  "data/3.svg.y.png",  "data/5.svg.r.png",  "data/7.svg.b.png",  "data/8.svg.w.png",
+"data/2.svg.r.png",  "data/4.svg.b.png",  "data/5.svg.w.png",  "data/7.svg.g.png",  "data/8.svg.y.png"
+];
+      game.preload(asset_names);
+      var card_count = new Label();
+
+      var card_count_i = 0;
+
+      function showCardCount() {
+        card_count.text = ""+card_count_i + " - reset";
+      }
+
+      function reset() {
+        cards.forEach(function(it) {
+          game.rootScene.removeChild(it);
+        });
+        card_count_i = -1;
+        showCardCount();
+        cards = [];
+      }
+      card_count.addEventListener(Event.TOUCH_END, reset);
+
+
+
+
+      function getRandomImage() {
+        return game.assets[
+          asset_names[Math.floor(Math.random() * asset_names.length)]
+        ];
+      }
+
+      function flipNewCard() {
+        card_count_i ++;
+        showCardCount();
+        if (card_count_i == 0) return;
+        var card = new Sprite(200,200);
+        cards.push(card);
+        card.x = 60;
+        card.y = 380;
+        card.image = getRandomImage();
+        //card.addEventListener(Event.TOUCH_END, flipNewCard);
+        card.scale(1,0);
+        game.rootScene.addChild(card);
+        card.tl.scaleTo(1,1,12)
+        .and().moveTo(Math.round(Math.random()*30+30), Math.round(Math.random()*30+30), 12)
+				.and().rotateBy(Math.random()*36-18, 8)
+      }
+      game.onload = function() {
+        //flipNewCard();
+        showCardCount();
+        game.rootScene.addChild(card_count);
+      }
+      game.rootScene.addEventListener(Event.TOUCH_END, flipNewCard);
+      game.start();
+    }
+    </script>
+  </body>
+</html>
