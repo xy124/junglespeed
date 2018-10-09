@@ -2,6 +2,9 @@
 
 Play a junglespeed inspired game with your mobile phone.
 
+## Demo:
+- https://xy124.github.io/junglespeed/index.html
+
 ## Requirements:
 - python SimpleHTTPServer or similar to host
 - inkscape to generate the cards
